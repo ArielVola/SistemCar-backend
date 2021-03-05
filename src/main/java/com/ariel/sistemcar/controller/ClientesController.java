@@ -80,4 +80,21 @@ public class ClientesController {
 		
 	}
 	
+	@GetMapping("/activos-filtro/{search}")
+    public ResponseEntity<List<Clientes>> getAllClientesByFiltro(@PathVariable String search) {
+ 
+        if (search != null) {
+            search = search.trim();
+        }
+        if ((search != null) && !search.equalsIgnoreCase("undefined") && search.length() > 0) {
+            search = "%" + search.toLowerCase() + "%";
+            List<Clientes> clientesActivos = clientesRepository.findClientesByFiltro(search);
+            return ResponseEntity.ok().body(clientesActivos);
+        } else {
+            List<Clientes> clientesActivos = clientesRepository.findAll();
+            return ResponseEntity.ok().body(clientesActivos);
+        }
+
+    }
+	
 }

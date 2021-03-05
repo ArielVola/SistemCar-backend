@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ariel.sistemcar.domain.Clientes;
 import com.ariel.sistemcar.domain.Proveedores;
 import com.ariel.sistemcar.repository.ProveedoresRepository;
 
@@ -78,5 +79,22 @@ public class ProveedoresController {
 		}
 		
 	}
+	
+	@GetMapping("/activos-filtro/{search}")
+    public ResponseEntity<List<Proveedores>> getAllProveedoresByFiltro(@PathVariable String search) {
+ 
+        if (search != null) {
+            search = search.trim();
+        }
+        if ((search != null) && !search.equalsIgnoreCase("undefined") && search.length() > 0) {
+            search = "%" + search.toLowerCase() + "%";
+            List<Proveedores> proveedoresActivos = proveedoresRepository.findProveedoresByFiltro(search);
+            return ResponseEntity.ok().body(proveedoresActivos);
+        } else {
+            List<Proveedores> proveedoresActivos = proveedoresRepository.findAll();
+            return ResponseEntity.ok().body(proveedoresActivos);
+        }
+
+    }
 
 }

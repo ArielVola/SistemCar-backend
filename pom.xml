@@ -12,6 +12,7 @@
 	<artifactId>sistemcar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sistemcar</name>
+	<packaging>jar</packaging> 
 	<description>Gestión de empleados</description>
 
 	<properties>
