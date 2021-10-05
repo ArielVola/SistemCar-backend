@@ -13,7 +13,7 @@ import com.ariel.sistemcar.domain.Clientes;
 public interface ClientesRepository extends JpaRepository<Clientes, Long>  {
 
 	@Query(
-	        value="SELECT clientes.* FROM clientes WHERE lower(clientes.patente) LIKE lower(:search)",
+	        value="SELECT clientes.* FROM clientes WHERE lower(clientes.patente) LIKE lower(:search) OR lower(clientes.nombre) LIKE lower(:search)",
 	        nativeQuery = true)
 	    List<Clientes> findClientesByFiltro(@Param(value="search") String search);
 	
